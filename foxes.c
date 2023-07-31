@@ -134,8 +134,8 @@ char* foxes_happy(foxes_options options) {
     return internal("happy", (Tags)Happy, options);
 }
 char* foxes_scary(foxes_options options) {
-    return internal("fox", (Tags)Scary, options);
+    return internal("scary", (Tags)Scary, options);
 }
 char* foxes_sleeping(foxes_options options) {
-    return internal("fox", (Tags)Sleeping, options);
+    return internal("sleeping", (Tags)Sleeping, options);
 }
