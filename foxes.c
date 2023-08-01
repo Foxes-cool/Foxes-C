@@ -59,7 +59,7 @@ size_t writefunc(void *contents, size_t size, size_t nmemb, void *userp) {
     size_t realsize = size * nmemb;
     struct CurlString *mem = (struct CurlString *)userp;
 
-    char *ptr = realloc(mem->memory, mem->size + realsize + 1);
+    char *ptr = (char*) realloc(mem->memory, mem->size + realsize + 1);
     if(!ptr) {
         return 0;
     }
@@ -80,7 +80,7 @@ char* internal(char* name, Tags tag, foxes_options options) {
         if(curl) {
             struct CurlString body;
 
-            body.memory = malloc(1);
+            body.memory = (char*) malloc(1);
             body.size = 0;
 
             char* url = concat(2, "https://foxes.cool/counts/", name);
@@ -92,8 +92,8 @@ char* internal(char* name, Tags tag, foxes_options options) {
 
             free(url);
             totals[tag] = (Counts){
-                .days = days,
                 .count = atol(body.memory),
+                .days = days,
             };
             free(body.memory);
         }
@@ -102,7 +102,7 @@ char* internal(char* name, Tags tag, foxes_options options) {
     long id = rand()%totals[tag].count;
     char* url;
 
-    char* params[3] = {"","",""};
+    char* params[3] = {(char*) "", (char*) "", (char*) ""};
 
     int index = 0;
     if (options.width) params[index++] = concat(2, "width=", iota(options.width));
@@ -123,19 +123,19 @@ char* internal(char* name, Tags tag, foxes_options options) {
 }
 
 char* foxes_fox(foxes_options options) {
-    return internal("fox", (Tags)Fox, options);
+    return internal((char*) "fox", (Tags)Fox, options);
 }
 
 char* foxes_curious(foxes_options options) {
-    return internal("curious", (Tags)Curious, options);
+    return internal((char*) "curious", (Tags)Curious, options);
 }
 
 char* foxes_happy(foxes_options options) {
-    return internal("happy", (Tags)Happy, options);
+    return internal((char*) "happy", (Tags)Happy, options);
 }
 char* foxes_scary(foxes_options options) {
-    return internal("scary", (Tags)Scary, options);
+    return internal((char*) "scary", (Tags)Scary, options);
 }
 char* foxes_sleeping(foxes_options options) {
-    return internal("sleeping", (Tags)Sleeping, options);
+    return internal((char*) "sleeping", (Tags)Sleeping, options);
 }
